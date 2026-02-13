@@ -22,11 +22,12 @@ import { RetailPage } from './components/industry/RetailPage';
 import { CPGPage } from './components/industry/CPGPage';
 import { OurStoryPage } from './components/about/OurStoryPage';
 import { DataEngineeringPage } from './components/services/DataEngineeringPage';
+import { ContactPage } from './components/contact/ContactPage';
 
 function App() {
   const [activeVibe, setActiveVibe] = useState<string>('home');
   const [view, setView] = useState<{ 
-    type: 'home' | 'retail-banking' | 'asset-wealth' | 'cards-payments' | 'risk-compliance' | 'ai-services' | 'intelligent-automation' | 'airlines' | 'airports' | 'travel-tech' | 'ota' | 'retail' | 'cpg' | 'our-story' | 'data-engineering' | 'other', 
+    type: 'home' | 'retail-banking' | 'asset-wealth' | 'cards-payments' | 'risk-compliance' | 'ai-services' | 'intelligent-automation' | 'airlines' | 'airports' | 'travel-tech' | 'ota' | 'retail' | 'cpg' | 'our-story' | 'data-engineering' | 'contact' | 'other', 
     data?: any 
   }>({ type: 'home' });
 
@@ -37,6 +38,12 @@ function App() {
     setActiveVibe(vibe);
     if (vibe === 'home') {
       setView({ type: 'home' });
+      return;
+    }
+
+    if (vibe === 'contact') {
+      setView({ type: 'contact' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
     
@@ -149,6 +156,10 @@ function App() {
 
           {view.type === 'data-engineering' && (
             <DataEngineeringPage key="data-engineering" onBack={() => setView({ type: 'home' })} />
+          )}
+
+          {view.type === 'contact' && (
+            <ContactPage key="contact" onBack={() => setView({ type: 'home' })} />
           )}
         </AnimatePresence>
       </main>

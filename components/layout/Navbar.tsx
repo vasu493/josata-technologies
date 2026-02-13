@@ -60,7 +60,11 @@ export const Navbar: React.FC<Props> = ({ onVibeChange }) => {
           <nav className="space-y-3.5 mb-8">
             {['OFFICES', 'ALUMNI', 'MEDIA CENTER', 'SUBSCRIBE', 'CONTACT'].map((item) => (
               <div key={item}>
-                <a href="#" className="text-[11px] font-bold tracking-[0.15em] text-[#001b3d] hover:text-blue-600 transition-colors flex items-center gap-2 uppercase">
+                <a 
+                  href="#" 
+                  onClick={(e) => { e.preventDefault(); onVibeChange?.('contact'); }}
+                  className="text-[11px] font-bold tracking-[0.15em] text-[#001b3d] hover:text-blue-600 transition-colors flex items-center gap-2 uppercase"
+                >
                   {item}
                 </a>
               </div>
@@ -111,7 +115,6 @@ export const Navbar: React.FC<Props> = ({ onVibeChange }) => {
       <div className="bg-white border-b border-slate-100 h-20 relative z-50 shadow-sm px-8">
         <div className="max-w-[1440px] mx-auto h-full flex items-center justify-between">
           <div className="flex items-center gap-6 h-full">
-            {/* Restored 3-line Hamburger Menu */}
             <button 
               onClick={() => setIsSideMenuOpen(true)} 
               className="flex flex-col gap-1 w-6 group px-1 h-20 justify-center" 
@@ -144,28 +147,12 @@ export const Navbar: React.FC<Props> = ({ onVibeChange }) => {
                   }`}>
                     {item.label}
                   </span>
-
-                  {/* Restored Triangle and Line Hover Animation */}
                   <AnimatePresence>
                     {activeMenu === item.label && (
                       <div className="absolute inset-0 flex flex-col items-center justify-end pointer-events-none">
-                        <motion.div 
-                          initial={{ width: 0 }} 
-                          animate={{ width: "100%" }} 
-                          exit={{ width: 0 }} 
-                          transition={{ type: "spring", stiffness: 300, damping: 25 }} 
-                          className="h-[3px] bg-[#001b3d] mb-2" 
-                        />
-                        <motion.div 
-                          initial={{ opacity: 0, y: -10 }} 
-                          animate={{ opacity: 1, y: 0 }} 
-                          exit={{ opacity: 0, y: -5 }} 
-                          transition={{ duration: 0.2 }} 
-                          className="absolute -bottom-1"
-                        >
-                          <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M6 8L0 0H12L6 8Z" fill="#001b3d" />
-                          </svg>
+                        <motion.div initial={{ width: 0 }} animate={{ width: "100%" }} exit={{ width: 0 }} transition={{ type: "spring", stiffness: 300, damping: 25 }} className="h-[3px] bg-[#001b3d] mb-2" />
+                        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -5 }} transition={{ duration: 0.2 }} className="absolute -bottom-1">
+                          <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 8L0 0H12L6 8Z" fill="#001b3d" /></svg>
                         </motion.div>
                       </div>
                     )}
@@ -176,7 +163,13 @@ export const Navbar: React.FC<Props> = ({ onVibeChange }) => {
           </div>
           <div className="flex items-center gap-6">
             <button className="text-slate-700 hover:text-blue-600 transition-colors"><Icons.Search size={20} /></button>
-            <button className="bg-[#001b3d] text-white px-6 py-2 rounded text-[13px] font-bold uppercase tracking-wider shadow-sm hover:bg-slate-800 transition-all">Get Started</button>
+            <button 
+              onMouseEnter={() => onVibeChange?.('contact')}
+              onClick={() => onVibeChange?.('contact')}
+              className="bg-[#001b3d] text-white px-6 py-2 rounded text-[13px] font-bold uppercase tracking-wider shadow-sm hover:bg-slate-800 transition-all"
+            >
+              Contact Us
+            </button>
           </div>
         </div>
       </div>
@@ -203,33 +196,16 @@ export const Navbar: React.FC<Props> = ({ onVibeChange }) => {
         )}
       </AnimatePresence>
 
-      {/* Restored Side Menu Drawer */}
       <AnimatePresence>
         {isSideMenuOpen && (
           <>
-            <motion.div 
-              initial={{ opacity: 0 }} 
-              animate={{ opacity: 1 }} 
-              exit={{ opacity: 0 }} 
-              onClick={handleSideMenuClose} 
-              className="fixed inset-0 bg-black/40 backdrop-blur-[2px] z-[100]" 
-            />
-            <motion.div 
-              initial={{ x: '-100%' }} 
-              animate={{ x: 0 }} 
-              exit={{ x: '-100%' }} 
-              transition={{ type: 'spring', damping: 35, stiffness: 300 }} 
-              className="fixed top-0 left-0 h-full w-full max-w-[320px] bg-white z-[101] shadow-2xl flex flex-col px-8 py-8"
-            >
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={handleSideMenuClose} className="fixed inset-0 bg-black/40 backdrop-blur-[2px] z-[100]" />
+            <motion.div initial={{ x: '-100%' }} animate={{ x: 0 }} exit={{ x: '-100%' }} transition={{ type: 'spring', damping: 35, stiffness: 300 }} className="fixed top-0 left-0 h-full w-full max-w-[320px] bg-white z-[101] shadow-2xl flex flex-col px-8 py-8">
               <div className="flex items-center justify-between mb-10">
                 <span className="text-lg font-bold tracking-tight text-[#001b3d]">JOSATA <span className="text-blue-600">COMPANY</span></span>
-                <button onClick={handleSideMenuClose} className="text-slate-400 hover:text-black transition-colors">
-                  <Icons.X size={20} />
-                </button>
+                <button onClick={handleSideMenuClose} className="text-slate-400 hover:text-black transition-colors"><Icons.X size={20} /></button>
               </div>
-              <div className="flex-1 overflow-y-auto">
-                <AnimatePresence mode="wait">{renderSideMenuContent()}</AnimatePresence>
-              </div>
+              <div className="flex-1 overflow-y-auto"><AnimatePresence mode="wait">{renderSideMenuContent()}</AnimatePresence></div>
             </motion.div>
           </>
         )}

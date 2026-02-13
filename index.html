@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +21,6 @@
         .serif-font {
             font-family: 'Playfair Display', serif;
         }
-        /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -44,16 +44,10 @@
             background: #e2e8f0;
             border-radius: 10px;
         }
-        /* Dot pattern background */
         .bg-dots {
             background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
             background-size: 30px 30px;
         }
-        /* Slanted Clip Path for Hero Image */
-        .clip-chevron {
-            clip-path: polygon(0 0, 85% 0, 100% 50%, 85% 100%, 0 100%);
-        }
-        /* Organic Wave Mask for Hero Image */
         .mask-wave {
           clip-path: polygon(0% 0%, 88% 0%, 100% 25%, 92% 50%, 100% 75%, 88% 100%, 0% 100%);
         }
@@ -62,9 +56,11 @@
 {
   "imports": {
     "framer-motion": "https://esm.sh/framer-motion@^12.34.0",
-    "react/": "https://esm.sh/react@^19.2.4/",
     "react": "https://esm.sh/react@^19.2.4",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react/jsx-runtime": "https://esm.sh/react@^19.2.4/jsx-runtime",
     "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+    "react-dom": "https://esm.sh/react-dom@^19.2.4",
     "react-dom/": "https://esm.sh/react-dom@^19.2.4/"
   }
 }
@@ -72,5 +68,6 @@
 </head>
 <body>
     <div id="root"></div>
+    <script type="module" src="./index.tsx"></script>
 </body>
 </html>
